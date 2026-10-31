@@ -1,0 +1,51 @@
+{
+  "name": "shamela-teaching-mcp",
+  "version": "0.1.0",
+  "description": "MCP server + skill for source-verified, book-based lesson preparation and research on a local al-Maktaba al-Shamila 4 library. Arabic first; optional context-aware translation.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "author": {
+    "name": "Nik Frühschulz",
+    "url": "https://github.com/nikcommits"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikcommits/shamela-teaching-mcp.git"
+  },
+  "homepage": "https://github.com/nikcommits/shamela-teaching-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/nikcommits/shamela-teaching-mcp/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "shamela-teaching-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "fetch-helper": "node scripts/fetch-helper.mjs",
+    "build": "node scripts/fetch-helper.mjs && node scripts/build.mjs",
+    "typecheck": "tsc -p .",
+    "test": "vitest run",
+    "test:live": "vitest run --config vitest.live.config.ts",
+    "check:versions": "node scripts/check-versions.mjs",
+    "pack:mcpb": "node scripts/pack.mjs",
+    "pack:skill": "node scripts/pack-skill.mjs",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "shamela-mcp": "git+https://github.com/alhoqbani/shamela-mcp.git#8b992ead2f01177e3348fa6d9893da55b98d9079",
+    "sql.js": "^1.15.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vitest": "^4.1.5",
+    "esbuild": "^0.28.1",
+    "tsx": "^4.19.2",
+    "@types/node": "^20.19.0",
+    "@types/sql.js": "^1.4.11"
+  }
+}

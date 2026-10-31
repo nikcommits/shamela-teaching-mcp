@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+coverage/
+*.mcpb
+*.zip
+# Fetched at build time from the pinned upstream release (see scripts/fetch-helper.mjs)
+helper/*.jar
+# Never commit personal teaching data or Shamela content
+data/
+.teaching-data/
+.DS_Store
