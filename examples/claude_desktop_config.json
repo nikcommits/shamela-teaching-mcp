@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "shamela-teaching": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/shamela-teaching-mcp/dist/index.js"],
+      "env": {
+        "TEACHING_LANG": "ar",
+        "SHAMELA_INSTALL_ROOT": "",
+        "TEACHING_DATA_DIR": ""
+      }
+    }
+  }
+}

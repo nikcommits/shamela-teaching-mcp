@@ -5,7 +5,7 @@
  */
 
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { JavaHelper, logInfo, resolveAll } from "shamela-mcp";
+import { JavaHelper, resolveAll } from "shamela-mcp";
 import { createSqlJsDb } from "shamela-mcp/sqljs";
 
 import { alignUpstreamLanguage, createApp } from "./app.js";
@@ -14,6 +14,10 @@ import { TEACHING_VERSION } from "./version.js";
 
 // @ts-expect-error — esbuild `--loader:.wasm=binary` inlines this as a Uint8Array.
 import sqlWasm from "sql.js/dist/sql-wasm.wasm";
+
+const logInfo = (msg: string): void => {
+    process.stderr.write(`[shamela-teaching] ${msg}\n`);
+};
 
 async function main(): Promise<void> {
     scrubUnfilledSettings(process.env);

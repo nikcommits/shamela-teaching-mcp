@@ -12,6 +12,7 @@
 
 import * as fs from "node:fs";
 import { createRequire } from "node:module";
+import * as path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
@@ -95,5 +96,25 @@ describe("upstream contract", () => {
         const r = await client.callTool({ name: "teaching_book_set", arguments: { book_id: 1 } });
         expect(r.isError).toBe(true);
         expect((r.content as Array<{ text: string }>)[0]!.text).toMatch(/^SHAMELA_NOT_FOUND: /);
+    });
+});
+
+describe("skill ↔ server", () => {
+    it("names only tools the server actually offers", async () => {
+        const names = new Set((await client.listTools()).tools.map((t) => t.name));
+        const dir = path.resolve("skills/shamela-teaching");
+        const files = [path.join(dir, "SKILL.md"), ...fs.readdirSync(path.join(dir, "references")).map((f) => path.join(dir, "references", f))];
+        const mentioned = new Set<string>();
+        for (const f of files) for (const m of fs.readFileSync(f, "utf8").matchAll(/(?<![\w-])(?:teaching|shamela)_[a-z]+(?:_[a-z]+)*\b/g)) mentioned.add(m[0]);
+        mentioned.delete("shamela_teaching"); // the server's own name in prose
+        const unknown = [...mentioned].filter((n) => !names.has(n));
+        expect(unknown).toEqual([]);
+        expect(mentioned.size).toBeGreaterThan(20);
+    });
+
+    it("references only files that exist", () => {
+        const dir = path.resolve("skills/shamela-teaching");
+        const skill = fs.readFileSync(path.join(dir, "SKILL.md"), "utf8");
+        for (const m of skill.matchAll(/\]\((references\/[^)]+)\)/g)) expect(fs.existsSync(path.join(dir, m[1]!)), m[1]).toBe(true);
     });
 });

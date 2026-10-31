@@ -28,11 +28,11 @@
     "build": "node scripts/fetch-helper.mjs && node scripts/build.mjs",
     "typecheck": "tsc -p .",
     "test": "vitest run",
-    "test:live": "vitest run --config vitest.live.config.ts",
     "check:versions": "node scripts/check-versions.mjs",
     "pack:mcpb": "node scripts/pack.mjs",
     "pack:skill": "node scripts/pack-skill.mjs",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "selftest": "node scripts/selftest.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.2",

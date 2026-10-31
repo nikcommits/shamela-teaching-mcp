@@ -1,0 +1,293 @@
+{
+  "manifest_version": "0.2",
+  "name": "shamela-teaching",
+  "display_name": "التحضير الموثَّق للدروس من المكتبة الشاملة — Shamela Teaching",
+  "version": "0.1.0",
+  "description": "تحضير دروس وأبحاث موثَّقة من نسختك المحلية من المكتبة الشاملة ٤: ملف مصادر يُتحقَّق فيه من كل نص مرتين ويُحفظ بلفظ الكتاب وموضعه الدائم، ودروس تميِّز النص الأصلي من الترجمة والتلخيص والشرح، مع قائمة بالتحققات المفتوحة. العربية هي الأصل، والترجمة (مثل الألمانية) طبقة إضافية اختيارية.",
+  "long_description": "يضم هذا الخادم أدوات البحث والقراءة الأربع والثلاثين من مشروع shamela-mcp (حمود الحقباني، رخصة MIT)، ويضيف إليها طبقة للتدريس: مشاريع (سلسلة دروس مبنية على كتاب، أو بحث موضوعي) تُحفظ بين الجلسات؛ واختيار الكتاب الأصل والشروح؛ وتعيين الصفحات المطبوعة دون تخمين عند تعدد الأجزاء؛ وإضافة النصوص إلى ملف المصادر بعد جلب الصفحة كاملة والتحقق مرتين (مقارنة مستقلة + أداة التحقق في المحرك) وحفظ لفظ الكتاب نفسه مع بصمة النص؛ وإعادة التحقق واكتشاف تغيّر الصفحات؛ وطبقة ترجمة اختيارية تُربط فيها كل ترجمة بسياقها وبنص المصدر وبمسرد المصطلحات وتبقى «غير مراجَعة» حتى يراجعها إنسان؛ ودروس تتألف من فقرات موسومة (نص أصلي، ترجمة، تلخيص، شرح، نشاط) مع كشف النقل غير المميَّز؛ وتصدير بصيغ Markdown وHTML وJSON مع ملحق المصادر والتحققات المفتوحة. لا يكتب الخادم في بيانات الشاملة، ولا يحمل أي كتاب؛ وتُحفظ بيانات التدريس في مجلد مستقل تختاره.\n\nGerman: Quellenbasierte Unterrichtsvorbereitung aus der eigenen Shamela-4-Installation. Arabisch ist die Hauptsprache; eine kontextgenaue deutsche Übersetzung ist als Zusatzebene zuschaltbar.",
+  "author": {
+    "name": "Nik Frühschulz",
+    "url": "https://github.com/nikcommits"
+  },
+  "homepage": "https://github.com/nikcommits/shamela-teaching-mcp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikcommits/shamela-teaching-mcp"
+  },
+  "license": "MIT",
+  "keywords": [
+    "shamela",
+    "الشاملة",
+    "arabic",
+    "islamic studies",
+    "teaching",
+    "citations",
+    "translation"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/index.js"
+      ],
+      "env": {
+        "SHAMELA_INSTALL_ROOT": "${user_config.shamela_install_folder}",
+        "SHAMELA_JRE": "${user_config.jre_path}",
+        "TEACHING_DATA_DIR": "${user_config.data_folder}",
+        "TEACHING_LANG": "${user_config.language}"
+      }
+    }
+  },
+  "user_config": {
+    "shamela_install_folder": {
+      "type": "directory",
+      "title": "مجلد المكتبة الشاملة / Shamela-Ordner",
+      "description": "المجلد الذي ثُبِّتت فيه المكتبة الشاملة ٤ (يحتوي database وapp). اتركه فارغًا للاكتشاف التلقائي. — Ordner der Shamela-4-Installation; leer lassen für automatische Erkennung.",
+      "required": false,
+      "default": ""
+    },
+    "data_folder": {
+      "type": "directory",
+      "title": "مجلد بيانات التدريس / Ordner für Unterrichtsdaten",
+      "description": "مكان حفظ المشاريع وملفات المصادر والدروس والصادرات. اتركه فارغًا للمجلد الافتراضي للنظام. — Speicherort für Projekte, Quellenmappen, Einheiten und Exporte; leer = Standardordner des Systems.",
+      "required": false,
+      "default": ""
+    },
+    "language": {
+      "type": "string",
+      "title": "لغة الواجهة / Sprache der Oberfläche",
+      "description": "ar للعربية (الافتراض)، de للألمانية، en للإنجليزية. النصوص الأصلية تبقى عربية دائمًا. — ar (Standard), de oder en. Originaltexte bleiben immer arabisch.",
+      "required": false,
+      "default": ""
+    },
+    "jre_path": {
+      "type": "file",
+      "title": "مسار جافا (متقدم) / Java (erweitert)",
+      "description": "اتركه فارغًا لاستخدام جافا المرفقة مع الشاملة. — Leer lassen, um die mit Shamela gelieferte Java-Laufzeit zu verwenden.",
+      "required": false,
+      "default": ""
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": [
+      "darwin",
+      "win32"
+    ],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  },
+  "tools": [
+    {
+      "name": "shamela_search_pages",
+      "description": "بحث في صفحات الكتب"
+    },
+    {
+      "name": "shamela_search_titles",
+      "description": "بحث في عناوين الفصول"
+    },
+    {
+      "name": "shamela_search_books",
+      "description": "بحث في فهرس الكتب"
+    },
+    {
+      "name": "shamela_search_authors",
+      "description": "بحث في فهرس المؤلفين"
+    },
+    {
+      "name": "shamela_get_page",
+      "description": "جلب صفحة"
+    },
+    {
+      "name": "shamela_get_toc",
+      "description": "جلب فهرس الكتاب"
+    },
+    {
+      "name": "shamela_get_book",
+      "description": "جلب بيانات كتاب"
+    },
+    {
+      "name": "shamela_get_author",
+      "description": "جلب بيانات مؤلف"
+    },
+    {
+      "name": "shamela_list_categories",
+      "description": "قائمة التصنيفات"
+    },
+    {
+      "name": "shamela_resolve",
+      "description": "تعيين الكتاب أو المؤلف بالاسم"
+    },
+    {
+      "name": "shamela_get_pages_range",
+      "description": "جلب نطاق صفحات"
+    },
+    {
+      "name": "shamela_get_book_section",
+      "description": "جلب باب من كتاب"
+    },
+    {
+      "name": "shamela_get_citation",
+      "description": "صياغة إحالة"
+    },
+    {
+      "name": "shamela_search_quran",
+      "description": "بحث في القرآن"
+    },
+    {
+      "name": "shamela_get_aya",
+      "description": "جلب آية"
+    },
+    {
+      "name": "shamela_get_tafseer_of_aya",
+      "description": "تفاسير آية"
+    },
+    {
+      "name": "shamela_get_books_for_hadith",
+      "description": "كتب تتضمَّن حديثًا"
+    },
+    {
+      "name": "shamela_list_downloaded_books",
+      "description": "قائمة الكتب المنزَّلة"
+    },
+    {
+      "name": "shamela_get_book_parts",
+      "description": "أجزاء الكتاب"
+    },
+    {
+      "name": "shamela_get_page_services",
+      "description": "إشارات الصفحة"
+    },
+    {
+      "name": "shamela_search_phrase",
+      "description": "بحث بالعبارة والتقارب"
+    },
+    {
+      "name": "shamela_search_hadith",
+      "description": "بحث عن حديث بنصه"
+    },
+    {
+      "name": "shamela_health",
+      "description": "فحص خادم الشاملة"
+    },
+    {
+      "name": "shamela_search_exact",
+      "description": "بحث مطابق مع التشكيل والهمزات والأرقام"
+    },
+    {
+      "name": "shamela_search_boolean",
+      "description": "بحث منطقي (و/أو/دون)"
+    },
+    {
+      "name": "shamela_root_stats",
+      "description": "انتشار جذر في المكتبة"
+    },
+    {
+      "name": "shamela_books_by_period",
+      "description": "كتب حسب المدة (تأريخًا ووفاةً)"
+    },
+    {
+      "name": "shamela_list_tafsirs_for_aya",
+      "description": "تغطية تفاسير آية"
+    },
+    {
+      "name": "shamela_get_tafseer_texts",
+      "description": "جلب نصوص تفسير آية"
+    },
+    {
+      "name": "shamela_guide",
+      "description": "دليل استخدام الإضافة"
+    },
+    {
+      "name": "shamela_suggest_download",
+      "description": "إرشاد لتنزيل كتاب غير موجود"
+    },
+    {
+      "name": "shamela_verify_quote",
+      "description": "تحقّق من نصٍّ منقول"
+    },
+    {
+      "name": "shamela_scan_consensus",
+      "description": "تحرير محل النزاع في مسألة"
+    },
+    {
+      "name": "shamela_research_scope",
+      "description": "إيصال تغطية المذاهب الأربعة"
+    },
+    {
+      "name": "teaching_status",
+      "description": "حال المكتبة والمشاريع"
+    },
+    {
+      "name": "teaching_project_create",
+      "description": "إنشاء مشروع"
+    },
+    {
+      "name": "teaching_project_get",
+      "description": "عرض مشروع"
+    },
+    {
+      "name": "teaching_project_update",
+      "description": "تعديل مشروع"
+    },
+    {
+      "name": "teaching_book_set",
+      "description": "اختيار كتاب للمشروع"
+    },
+    {
+      "name": "teaching_locate",
+      "description": "تعيين الصفحة"
+    },
+    {
+      "name": "teaching_parallels",
+      "description": "مواضع النص في الشروح"
+    },
+    {
+      "name": "teaching_source_add",
+      "description": "إضافة مصدر موثَّق"
+    },
+    {
+      "name": "teaching_source_list",
+      "description": "ملف المصادر"
+    },
+    {
+      "name": "teaching_source_recheck",
+      "description": "إعادة التحقق"
+    },
+    {
+      "name": "teaching_source_remove",
+      "description": "حذف مصدر"
+    },
+    {
+      "name": "teaching_translation_context",
+      "description": "سياق الترجمة"
+    },
+    {
+      "name": "teaching_translation_save",
+      "description": "حفظ ترجمة"
+    },
+    {
+      "name": "teaching_translation_review",
+      "description": "مراجعة ترجمة"
+    },
+    {
+      "name": "teaching_unit_save",
+      "description": "حفظ درس"
+    },
+    {
+      "name": "teaching_unit_get",
+      "description": "عرض درس"
+    },
+    {
+      "name": "teaching_open_checks",
+      "description": "التحققات المفتوحة"
+    },
+    {
+      "name": "teaching_export",
+      "description": "تصدير"
+    }
+  ]
+}
